@@ -1,0 +1,47 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Bitter", sans-serif;
+}
+body {
+  font-family: "Bitter", sans-serif;
+  line-height: 40px;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  padding: 0 32px;
+  margin: 0 auto;
+}
+
+.todo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+.button {
+  background-color: #ff4500;
+  border-color: #ffd700;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 39px;
+  border: 1px;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 20px;
+}
+.h1 {
+  font-size: 40px;
+  font-weight: bolder;
+  color: #ff4500;
+  margin-bottom: 10px;
+}
+#taskInput {
+  width: 300px;
+  border-radius: 10px;
+}
