@@ -96,9 +96,9 @@ ul li.checked {
   list-style: none;
 }
 
-.taskItem {
+.task-item {
   display: flex;
-  background-color: #ffd700;
+  background-color: #ffd7008f;
   padding: 10px;
   border-radius: 10px;
   justify-content: space-between;
@@ -109,7 +109,7 @@ ul li.checked {
   align-items: center;
   gap: 10px;
 }
-.taskItem img {
+.task-item img {
   width: 24px;
   height: 24px;
   margin: 0 10px;
