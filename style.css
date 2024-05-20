@@ -11,8 +11,8 @@ body {
 
 .container {
   width: 100%;
-  max-width: 500px;
-  padding: 0 32px;
+  min-width: 100vh;
+  padding: 10px;
   margin: 0 auto;
 }
 
@@ -27,21 +27,91 @@ body {
   background-color: #ff4500;
   border-color: #ffd700;
   color: #ffffff;
-  padding: 10px 20px;
+  padding: 10px 10px;
   border-radius: 39px;
   border: 1px;
   justify-content: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 20px;
+  margin-top: 15px;
 }
 .h1 {
-  font-size: 40px;
+  font-size: 30px;
   font-weight: bolder;
   color: #ff4500;
   margin-bottom: 10px;
 }
-#taskInput {
-  width: 300px;
+#taskInput,
+#taskDescription {
+  border: none;
+  outline: none;
+}
+input:focus {
+  outline: none;
+}
+.task-editor-input-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.task-editor-editing-area {
+  width: 100%;
+  max-width: 540px;
+  background-color: #fafafa;
+  margin: 100px auto 20px;
+  padding: 40px 30px 70px;
   border-radius: 10px;
+  border: 3px solid #c1c1c1;
+}
+
+ul li {
+  list-style: none;
+  font-size: 17px;
+  padding: 12px 8px 12px 50px;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+}
+
+ul li::before {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  height: 28px;
+  width: 28px;
+}
+
+ul li.checked {
+  color: #555;
+  text-decoration: line-through;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 30px;
+  width: 100%;
+  list-style: none;
+}
+
+.taskItem {
+  display: flex;
+  background-color: #ffd700;
+  padding: 10px;
+  border-radius: 10px;
+  justify-content: space-between;
+  width: 100%;
+}
+.task {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.taskItem img {
+  width: 24px;
+  height: 24px;
+  margin: 0 10px;
+  cursor: pointer;
 }

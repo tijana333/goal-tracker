@@ -10,20 +10,37 @@
       rel="stylesheet"
     />
     <script src="script.js"></script>
-
   </head>
 </html>
 <section class="todo-section">
   <div class="container">
     <div class="header">
       <div class="outer-container"></div>
-    </div>
-  </div>
   <main>
-  <div class="intro-section"></div>
-  <h1 class="h1">TO DO</h1>
-  <input type="text" id="taskInput" name="taskInput" placeholder="Add Task...">
-  <div><button id="button" class="button">Submit</button></div>
+    <div class="intro-section"></div>
+
+   <form class="task-editor"></form>
+    <div class="task-editor-editing-area">
+     
+      <ul id="list-container">
+        <li class="checked"></li>
+      </ul>
+      <h1 class="h1">Today</h1>
+      <div class="task-editor-input-fields">
+    <input type="text" id="taskInput" name="taskInput" placeholder="Task name">
+    <input type="text" id="taskDescription" name="taskInput" placeholder="Description">
+    <div><button id="button" class="button">Submit</button></div>
+  </div>
+  </div>
+    <div id="ErrorMessage" class="error-message">Empty task! Please enter a task</div>
+    <div id="successMessage" class="success-message" style="display:none;">
+      Form submitted successfully!
+  </div>
+    
+  </form>
+
+  </div>
 </div>
-</main>
+</div>
+  </main>
 </section>
