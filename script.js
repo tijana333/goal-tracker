@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateCompletedTaskList() {
     const completedTasksContainer = document.getElementById(
-      "completed-tasks-container"
+      "completed-tasks-list"
     );
     completedTasksContainer.innerHTML = "";
 
@@ -137,11 +137,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const taskText = document.createElement("span");
       taskText.textContent = task.text;
-      taskText.style.textDecoration = "line-through";
+      taskText.style.textDecoration = "none";
 
       const taskDesc = document.createElement("span");
       taskDesc.textContent = task.description;
-      taskDesc.style.textDecoration = "line-through";
+      taskDesc.style.textDecoration = "none";
 
       listItem.appendChild(taskText);
       listItem.appendChild(taskDesc);
@@ -151,9 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateDeletedTaskList() {
-    const deletedTasksContainer = document.getElementById(
-      "deleted-tasks-container"
-    );
+    const deletedTasksContainer = document.getElementById("deleted-tasks-list");
     deletedTasksContainer.innerHTML = "";
 
     deletedTasks.forEach((task, index) => {

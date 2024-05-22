@@ -11,38 +11,55 @@
     />
     <script src="script.js"></script>
   </head>
-</html>
-<section class="todo-section">
-  <div class="container">
-    <div class="header">
-      <div class="outer-container"></div>
-  <main>
-    <div class="intro-section"></div>
+  <body>
+    <section class="todo-section">
+      <div class="container">
+        <div class="header">
+          <div class="outer-container"></div>
+          <main>
+            <div class="intro-section"></div>
+            <form class="task-editor"></form>
+            <div class="task-editor-editing-area">
+              <ul id="list-container"></ul>
+              <h1 class="h1">Today</h1>
+              <div class="task-editor-input-fields">
+                <input
+                  type="text"
+                  id="taskInput"
+                  name="taskInput"
+                  placeholder="Task name"
+                />
+                <input
+                  type="text"
+                  id="taskDescription"
+                  name="taskInput"
+                  placeholder="Description"
+                />
+                <div><button id="button" class="button">Submit</button></div>
+              </div>
+            </div>
+            <div id="ErrorMessage" class="error-message">
+              Empty task! Please enter a task
+            </div>
+            <div
+              id="successMessage"
+              class="success-message"
+              style="display: none"
+            >
+              Form submitted successfully!
+            </div>
+          </main>
 
-   <form class="task-editor"></form>
-    <div class="task-editor-editing-area">
-     
-      <ul id="list-container">
-        <li class="checked"></li>
-      </ul>
-      <h1 class="h1">Today</h1>
-      <div class="task-editor-input-fields">
-    <input type="text" id="taskInput" name="taskInput" placeholder="Task name">
-    <input type="text" id="taskDescription" name="taskInput" placeholder="Description">
-    <div><button id="button" class="button">Submit</button></div>
-  </div>
-  </div>
-    <div id="ErrorMessage" class="error-message">Empty task! Please enter a task</div>
-    <div id="successMessage" class="success-message" style="display:none;">
-      Form submitted successfully!
-  </div>
-  </form>
-  <div id="list-container"></div>
-  <div id="completed-tasks-container"></div>
-  <div id="deleted-tasks-container"></div>
-  
-  </div>
-</div>
-</div>
-  </main>
-</section>
+          <div id="completed-tasks-container" class="tasks-container">
+            <h1>Done tasks</h1>
+            <ul id="completed-tasks-list"></ul>
+          </div>
+          <div id="deleted-tasks-container" class="tasks-container">
+            <h1>Deleted tasks</h1>
+            <ul id="deleted-tasks-list"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
