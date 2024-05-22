@@ -90,17 +90,25 @@ document.addEventListener("DOMContentLoaded", function () {
       checkbox.checked = task.completed;
       checkbox.addEventListener("change", () => toggleTaskComplete(index));
 
+      const taskTextContainer = document.createElement("div");
+      taskTextContainer.className = "task-text-container";
+
       const taskText = document.createElement("span");
+      taskText.className = "task-text";
       taskText.textContent = task.text;
       if (task.completed) {
         taskText.style.textDecoration = "line-through";
       }
 
       const taskDesc = document.createElement("span");
+      taskDesc.className = "task-desc";
       taskDesc.textContent = task.description;
       if (task.completed) {
         taskDesc.style.textDecoration = "line-through";
       }
+
+      taskTextContainer.appendChild(taskText);
+      taskTextContainer.appendChild(taskDesc);
 
       const iconsDiv = document.createElement("div");
       iconsDiv.className = "icons";
