@@ -101,6 +101,7 @@ ul li.checked {
   display: flex;
   align-items: center;
   gap: 10px;
+  width: calc(100% - 100px);
 }
 .task-item img {
   width: 24px;
@@ -122,6 +123,12 @@ ul li.checked {
   width: 45%;
 }
 
+#completed-tasks-list,
+#deleted-tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 #deleted-tasks-container {
   float: right;
   width: 45%;
@@ -145,9 +152,23 @@ ul li.checked {
 .task-text-container {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .task-desc {
   font-style: italic;
   margin-top: 5px;
+}
+
+.move-back-button {
+  background-color: #ff4500;
+  border-color: #ffd700;
+  color: #ffffff;
+  padding: 10px 10px;
+  border-radius: 39px;
+  border: 1px;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
 }

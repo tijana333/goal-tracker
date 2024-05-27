@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("button").addEventListener("click", function () {
     const taskInput = document.getElementById("taskInput").value;
     const taskDescription = document.getElementById("taskDescription").value;
+    const taskDifficulty = document.getElementById("taskDifficulty").value;
 
     ErrorMessage.style.display = "none";
     successMessage.style.display = "none";
@@ -27,14 +28,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const task = {
           text: taskInput,
           description: taskDescription,
+          difficulty: taskDifficulty,
           completed: false,
         };
         tasks.push(task);
       } else {
         tasks[editIndex].text = taskInput;
         tasks[editIndex].description = taskDescription;
+        tasks[editIndex].difficulty = taskDifficulty;
         editIndex = -1;
       }
+      sortTasksByDifficulty();
       updateTaskList();
 
       successMessage.style.display = "block";
@@ -44,8 +48,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
       document.getElementById("taskInput").value = "";
       document.getElementById("taskDescription").value = "";
+      document.getElementById("taskDifficulty").value = "easy";
     }
   });
+
+  function sortTasksByDifficulty() {
+    tasks.sort((a, b) => {
+      const difficultyOrder = { easy: 1, medium: 2, hard: 3 };
+      return difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty];
+    });
+  }
 
   function toggleTaskComplete(index) {
     const task = tasks[index];
@@ -71,9 +83,20 @@ document.addEventListener("DOMContentLoaded", function () {
   function editTask(index) {
     const taskInput = document.getElementById("taskInput");
     const taskDescription = document.getElementById("taskDescription");
+    const taskDifficulty = document.getElementById("taskDifficulty");
     taskInput.value = tasks[index].text;
     taskDescription.value = tasks[index].description;
+    taskDifficulty.value = tasks[index].difficulty;
     editIndex = index;
+  }
+
+  function moveTaskBackToTodoList(index) {
+    const task = completedTasks.splice(index, 1)[0];
+    task.completed = false;
+    tasks.push(task);
+    sortTasksByDifficulty();
+    updateTaskList();
+    updateCompletedTaskList();
   }
 
   function updateTaskList() {
@@ -84,6 +107,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const listItem = document.createElement("li");
       listItem.classList.add("task-item");
 
+      const taskContainer = document.createElement("div");
+      taskContainer.classList.add("task");
+
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.className = "task-checkbox";
@@ -93,22 +119,23 @@ document.addEventListener("DOMContentLoaded", function () {
       const taskTextContainer = document.createElement("div");
       taskTextContainer.className = "task-text-container";
 
-      const taskText = document.createElement("span");
+      const taskText = document.createElement("p");
       taskText.className = "task-text";
       taskText.textContent = task.text;
       if (task.completed) {
         taskText.style.textDecoration = "line-through";
       }
 
-      const taskDesc = document.createElement("span");
+      const taskDesc = document.createElement("p");
       taskDesc.className = "task-desc";
       taskDesc.textContent = task.description;
       if (task.completed) {
         taskDesc.style.textDecoration = "line-through";
       }
 
-      taskTextContainer.appendChild(taskText);
-      taskTextContainer.appendChild(taskDesc);
+      const taskDifficulty = document.createElement("span");
+      taskDifficulty.className = "task-difficulty";
+      taskDifficulty.textContent = task.difficulty;
 
       const iconsDiv = document.createElement("div");
       iconsDiv.className = "icons";
@@ -124,11 +151,15 @@ document.addEventListener("DOMContentLoaded", function () {
       iconsDiv.appendChild(editIcon);
       iconsDiv.appendChild(deleteIcon);
 
+      taskTextContainer.appendChild(taskText);
+      taskTextContainer.appendChild(taskDesc);
+      taskTextContainer.appendChild(taskDifficulty);
+
       listItem.appendChild(checkbox);
-      listItem.appendChild(taskText);
-      listItem.appendChild(taskDesc);
+      listItem.appendChild(taskTextContainer);
       listItem.appendChild(iconsDiv);
 
+      listItem.appendChild(taskContainer);
       listContainer.appendChild(listItem);
     });
   }
@@ -151,8 +182,21 @@ document.addEventListener("DOMContentLoaded", function () {
       taskDesc.textContent = task.description;
       taskDesc.style.textDecoration = "none";
 
+      const taskDifficulty = document.createElement("span");
+      taskDifficulty.className = "task-difficulty";
+      taskDifficulty.textContent = task.difficulty;
+
+      const moveBackButton = document.createElement("button");
+      moveBackButton.textContent = "Move Back to To-Do";
+      moveBackButton.className = "move-back-button";
+      moveBackButton.addEventListener("click", () =>
+        moveTaskBackToTodoList(index)
+      );
+
       listItem.appendChild(taskText);
       listItem.appendChild(taskDesc);
+      listItem.appendChild(taskDifficulty);
+      listItem.appendChild(moveBackButton);
 
       completedTasksContainer.appendChild(listItem);
     });
@@ -162,7 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const deletedTasksContainer = document.getElementById("deleted-tasks-list");
     deletedTasksContainer.innerHTML = "";
 
-    deletedTasks.forEach((task, index) => {
+    deletedTasks.forEach((task) => {
       const listItem = document.createElement("li");
       listItem.classList.add("task-item");
 
@@ -172,8 +216,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const taskDesc = document.createElement("span");
       taskDesc.textContent = task.description;
 
+      const taskDifficulty = document.createElement("span");
+      taskDifficulty.className = "task-difficulty";
+      taskDifficulty.textContent = task.difficulty;
+
       listItem.appendChild(taskText);
       listItem.appendChild(taskDesc);
+      listItem.appendChild(taskDifficulty);
 
       deletedTasksContainer.appendChild(listItem);
     });
