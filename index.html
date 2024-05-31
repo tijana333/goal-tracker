@@ -36,14 +36,25 @@
                   placeholder="Description"
                 />
                 <div class="filter-container">
-                  <label for="filterCategory">Filter by Difficulty: </label>
+                  <label for="taskDifficulty">Filter by Difficulty: </label>
                   <select id="taskDifficulty" name="taskDifficulty">
+                    <option value="all">All</option>
                     <option value="easy">Piece of Cake</option>
                     <option value="medium">Moderate Challenge</option>
                     <option value="hard">Herculean Task</option>
                   </select>
                 </div>
                 <div><button id="button" class="button">Submit</button></div>
+              </div>
+
+              <div class="filter-container">
+                <label for="filterCategory"> Filter Tasks:</label>
+                <select id="filterCategory" name="filterCategory">
+                  <option value="all">All</option>
+                  <option value="easy">Piece of Cake</option>
+                  <option value="medium">Moderate Challenge</option>
+                  <option value="hard">Herculean Task</option>
+                </select>
               </div>
             </div>
             <div id="ErrorMessage" class="error-message">

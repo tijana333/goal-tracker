@@ -52,6 +52,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // New event listener for filter dropdown
+  document
+    .getElementById("filterCategory")
+    .addEventListener("change", function () {
+      updateTaskList();
+    });
+
   function sortTasksByDifficulty() {
     tasks.sort((a, b) => {
       const difficultyOrder = { easy: 1, medium: 2, hard: 3 };
@@ -100,68 +107,74 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateTaskList() {
+    const filterCategory = document.getElementById("filterCategory").value; // Get the filter value
     const listContainer = document.getElementById("list-container");
     listContainer.innerHTML = "";
 
-    tasks.forEach((task, index) => {
-      const listItem = document.createElement("li");
-      listItem.classList.add("task-item");
+    // Filter tasks based on the selected category
+    tasks
+      .filter(
+        (task) => filterCategory === "all" || task.difficulty === filterCategory
+      )
+      .forEach((task, index) => {
+        const listItem = document.createElement("li");
+        listItem.classList.add("task-item");
 
-      const taskContainer = document.createElement("div");
-      taskContainer.classList.add("task");
+        const taskContainer = document.createElement("div");
+        taskContainer.classList.add("task");
 
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.className = "task-checkbox";
-      checkbox.checked = task.completed;
-      checkbox.addEventListener("change", () => toggleTaskComplete(index));
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "task-checkbox";
+        checkbox.checked = task.completed;
+        checkbox.addEventListener("change", () => toggleTaskComplete(index));
 
-      const taskTextContainer = document.createElement("div");
-      taskTextContainer.className = "task-text-container";
+        const taskTextContainer = document.createElement("div");
+        taskTextContainer.className = "task-text-container";
 
-      const taskText = document.createElement("p");
-      taskText.className = "task-text";
-      taskText.textContent = task.text;
-      if (task.completed) {
-        taskText.style.textDecoration = "line-through";
-      }
+        const taskText = document.createElement("p");
+        taskText.className = "task-text";
+        taskText.textContent = task.text;
+        if (task.completed) {
+          taskText.style.textDecoration = "line-through";
+        }
 
-      const taskDesc = document.createElement("p");
-      taskDesc.className = "task-desc";
-      taskDesc.textContent = task.description;
-      if (task.completed) {
-        taskDesc.style.textDecoration = "line-through";
-      }
+        const taskDesc = document.createElement("p");
+        taskDesc.className = "task-desc";
+        taskDesc.textContent = task.description;
+        if (task.completed) {
+          taskDesc.style.textDecoration = "line-through";
+        }
 
-      const taskDifficulty = document.createElement("span");
-      taskDifficulty.className = "task-difficulty";
-      taskDifficulty.textContent = task.difficulty;
+        const taskDifficulty = document.createElement("span");
+        taskDifficulty.className = "task-difficulty";
+        taskDifficulty.textContent = task.difficulty;
 
-      const iconsDiv = document.createElement("div");
-      iconsDiv.className = "icons";
+        const iconsDiv = document.createElement("div");
+        iconsDiv.className = "icons";
 
-      const editIcon = document.createElement("img");
-      editIcon.src = "./img/edit.png";
-      editIcon.addEventListener("click", () => editTask(index));
+        const editIcon = document.createElement("img");
+        editIcon.src = "./img/edit.png";
+        editIcon.addEventListener("click", () => editTask(index));
 
-      const deleteIcon = document.createElement("img");
-      deleteIcon.src = "./img/bin.png";
-      deleteIcon.addEventListener("click", () => deleteTask(index));
+        const deleteIcon = document.createElement("img");
+        deleteIcon.src = "./img/bin.png";
+        deleteIcon.addEventListener("click", () => deleteTask(index));
 
-      iconsDiv.appendChild(editIcon);
-      iconsDiv.appendChild(deleteIcon);
+        iconsDiv.appendChild(editIcon);
+        iconsDiv.appendChild(deleteIcon);
 
-      taskTextContainer.appendChild(taskText);
-      taskTextContainer.appendChild(taskDesc);
-      taskTextContainer.appendChild(taskDifficulty);
+        taskTextContainer.appendChild(taskText);
+        taskTextContainer.appendChild(taskDesc);
+        taskTextContainer.appendChild(taskDifficulty);
 
-      listItem.appendChild(checkbox);
-      listItem.appendChild(taskTextContainer);
-      listItem.appendChild(iconsDiv);
+        listItem.appendChild(checkbox);
+        listItem.appendChild(taskTextContainer);
+        listItem.appendChild(iconsDiv);
 
-      listItem.appendChild(taskContainer);
-      listContainer.appendChild(listItem);
-    });
+        listItem.appendChild(taskContainer);
+        listContainer.appendChild(listItem);
+      });
   }
 
   function updateCompletedTaskList() {
