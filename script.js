@@ -52,12 +52,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // New event listener for filter dropdown
   document
     .getElementById("filterCategory")
     .addEventListener("change", function () {
       updateTaskList();
     });
+
+  document.getElementById("searchInput").addEventListener("input", function () {
+    updateTaskList();
+  });
 
   function sortTasksByDifficulty() {
     tasks.sort((a, b) => {
@@ -107,11 +110,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateTaskList() {
-    const filterCategory = document.getElementById("filterCategory").value; // Get the filter value
+    const filterCategory = document.getElementById("filterCategory").value;
     const listContainer = document.getElementById("list-container");
     listContainer.innerHTML = "";
 
-    // Filter tasks based on the selected category
     tasks
       .filter(
         (task) => filterCategory === "all" || task.difficulty === filterCategory
@@ -219,25 +221,39 @@ document.addEventListener("DOMContentLoaded", function () {
     const deletedTasksContainer = document.getElementById("deleted-tasks-list");
     deletedTasksContainer.innerHTML = "";
 
-    deletedTasks.forEach((task) => {
+    deletedTasks.forEach((task, index) => {
       const listItem = document.createElement("li");
       listItem.classList.add("task-item");
 
-      const taskText = document.createElement("span");
+      const taskContainer = document.createElement("div");
+      taskContainer.classList.add("task");
+
+      const taskTextContainer = document.createElement("div");
+      taskTextContainer.className = "task-text-container";
+
+      const taskText = document.createElement("p");
+      taskText.className = "task-text";
       taskText.textContent = task.text;
 
-      const taskDesc = document.createElement("span");
+      const taskDesc = document.createElement("p");
+      taskDesc.className = "task-desc";
       taskDesc.textContent = task.description;
 
       const taskDifficulty = document.createElement("span");
       taskDifficulty.className = "task-difficulty";
       taskDifficulty.textContent = task.difficulty;
 
-      listItem.appendChild(taskText);
-      listItem.appendChild(taskDesc);
-      listItem.appendChild(taskDifficulty);
+      taskTextContainer.appendChild(taskText);
+      taskTextContainer.appendChild(taskDesc);
+      taskTextContainer.appendChild(taskDifficulty);
 
+      taskContainer.appendChild(taskTextContainer);
+      listItem.appendChild(taskContainer);
       deletedTasksContainer.appendChild(listItem);
     });
   }
+
+  updateTaskList();
+  updateCompletedTaskList();
+  updateDeletedTaskList();
 });
