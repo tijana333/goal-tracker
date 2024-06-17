@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const tasks = [];
-  const completedTasks = [];
-  const deletedTasks = [];
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  const completedTasks =
+    JSON.parse(localStorage.getItem("completedTasks")) || [];
+  const deletedTasks = JSON.parse(localStorage.getItem("deletedTasks")) || [];
   let editIndex = -1;
 
   const ErrorMessage = document.getElementById("ErrorMessage");
@@ -11,6 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
   ErrorMessage.style.display = "none";
   successMessage.style.display = "none";
   noTasksMessage.style.display = "none";
+
+  function saveTasksToLocalStorage() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
+    localStorage.setItem("deletedTasks", JSON.stringify(deletedTasks));
+  }
 
   document.getElementById("button").addEventListener("click", function () {
     const taskInput = document.getElementById("taskInput").value;
@@ -53,6 +60,13 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("taskDifficulty").value = "easy";
     }
   });
+  function initializeTaskList() {
+    updateTaskList();
+    updateCompletedTaskList();
+    updateDeletedTaskList();
+  }
+
+  initializeTaskList();
 
   document
     .getElementById("filterCategory")
@@ -194,6 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
         listContainer.appendChild(listItem);
       });
     }
+    saveTasksToLocalStorage();
   }
   function updateCompletedTaskList() {
     const completedTasksContainer = document.getElementById(
