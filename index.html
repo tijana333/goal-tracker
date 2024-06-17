@@ -20,52 +20,55 @@
             <div class="intro-section"></div>
             <form class="task-editor"></form>
             <div class="task-editor-editing-area">
-              <ul id="list-container"></ul>
-              <h1 class="h1">Today</h1>
-              <div class="task-editor-input-fields">
-                <input
-                  type="text"
-                  id="taskInput"
-                  name="taskInput"
-                  placeholder="Task name"
-                />
-                <input
-                  type="text"
-                  id="taskDescription"
-                  name="taskInput"
-                  placeholder="Description"
-                />
-                <div class="filter-container">
-                  <label for="taskDifficulty">Filter by Difficulty: </label>
-                  <select id="taskDifficulty" name="taskDifficulty">
-                    <option value="all">All</option>
-                    <option value="easy">Piece of Cake</option>
-                    <option value="medium">Moderate Challenge</option>
-                    <option value="hard">Herculean Task</option>
-                  </select>
-                </div>
-                <div><button id="button" class="button">Submit</button></div>
-              </div>
-
+            <ul id="list-container"></ul>
+            <h1 class="h1">Today</h1>
+            <div class="task-editor-input-fields">
+              <input
+                type="text"
+                id="taskInput"
+                name="taskInput"
+                placeholder="Task name"
+              />
+              <input
+                type="text"
+                id="taskDescription"
+                name="taskInput"
+                placeholder="Description"
+              />
               <div class="filter-container">
-                <label for="filterCategory"> Filter Tasks:</label>
-                <select id="filterCategory" name="filterCategory">
-                  <option value="all">All</option>
+                <label for="taskDifficulty">Filter by Difficulty: </label>
+                <select id="taskDifficulty" name="taskDifficulty">
                   <option value="easy">Piece of Cake</option>
                   <option value="medium">Moderate Challenge</option>
                   <option value="hard">Herculean Task</option>
                 </select>
               </div>
-
-              <div class="search-container">
-                <label for="searchInput">Search Tasks:</label>
-                <input
-                  type="text"
-                  id="searchInput"
-                  placeholder="Search by task or description"
-                />
-              </div>
+              <div><button id="button" class="button">Submit</button></div>
             </div>
+
+            <div class="filter-container">
+              <label for="filterCategory"> Filter Tasks:</label>
+              <select id="filterCategory" name="filterCategory">
+                <option value="all">All</option>
+                <option value="easy">Piece of Cake</option>
+                <option value="medium">Moderate Challenge</option>
+                <option value="hard">Herculean Task</option>
+              </select>
+            </div>
+
+            <div class="search-container">
+              <label for="searchInput">Search Tasks:</label>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by task or description"
+              />
+              <button id="searchButton">Search</button>
+            </div>
+            <div id="noTasksMessage" class="no-tasks-message">
+              No tasks found
+            </div>
+
             <div id="ErrorMessage" class="error-message">
               Empty task! Please enter a task
             </div>

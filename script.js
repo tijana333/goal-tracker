@@ -6,9 +6,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const ErrorMessage = document.getElementById("ErrorMessage");
   const successMessage = document.getElementById("successMessage");
+  const noTasksMessage = document.getElementById("noTasksMessage");
 
   ErrorMessage.style.display = "none";
   successMessage.style.display = "none";
+  noTasksMessage.style.display = "none";
 
   document.getElementById("button").addEventListener("click", function () {
     const taskInput = document.getElementById("taskInput").value;
@@ -58,9 +60,11 @@ document.addEventListener("DOMContentLoaded", function () {
       updateTaskList();
     });
 
-  document.getElementById("searchInput").addEventListener("input", function () {
-    updateTaskList();
-  });
+  document
+    .getElementById("searchButton")
+    .addEventListener("click", function () {
+      updateTaskList();
+    });
 
   function sortTasksByDifficulty() {
     tasks.sort((a, b) => {
@@ -111,14 +115,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateTaskList() {
     const filterCategory = document.getElementById("filterCategory").value;
+    const searchInput = document
+      .getElementById("searchInput")
+      .value.toLowerCase();
     const listContainer = document.getElementById("list-container");
     listContainer.innerHTML = "";
 
-    tasks
-      .filter(
-        (task) => filterCategory === "all" || task.difficulty === filterCategory
-      )
-      .forEach((task, index) => {
+    const filteredTasks = tasks.filter((task) => {
+      const matchesCategory =
+        filterCategory === "all" || task.difficulty === filterCategory;
+      const matchesSearch =
+        task.text.toLowerCase().includes(searchInput) ||
+        task.description.toLowerCase().includes(searchInput);
+      return matchesCategory && matchesSearch;
+    });
+
+    if (searchInput.length > 0 && filteredTasks.length === 0) {
+      noTasksMessage.style.display = "block";
+    } else {
+      noTasksMessage.style.display = "none";
+      filteredTasks.forEach((task, index) => {
         const listItem = document.createElement("li");
         listItem.classList.add("task-item");
 
@@ -177,8 +193,8 @@ document.addEventListener("DOMContentLoaded", function () {
         listItem.appendChild(taskContainer);
         listContainer.appendChild(listItem);
       });
+    }
   }
-
   function updateCompletedTaskList() {
     const completedTasksContainer = document.getElementById(
       "completed-tasks-list"
